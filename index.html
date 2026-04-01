@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kast · Seguimiento de Promesas 2026–2030</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--rojo:#CC1B14;--rojo2:#E02020;--azul:#003087;--azul2:#001A4D;--blanco:#FFFFFF;--crema:#F5F0E6;--negro:#0A0A0A;--g1:#111111;--g2:#1C1C1C;--g3:#2E2E2E;--g4:#888888;--verde:#1DB954;--amarillo:#F0C030;--naranja:#E07020;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--negro);color:var(--blanco);font-family:'Barlow',sans-serif;font-size:16px;line-height:1.5;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(-55deg,transparent,transparent 60px,rgba(255,255,255,.012) 60px,rgba(255,255,255,.012) 61px);pointer-events:none;z-index:0;}
+.top-bar{position:relative;z-index:10;height:6px;background:linear-gradient(to right,var(--azul) 33.3%,var(--blanco) 33.3%,var(--blanco) 66.6%,var(--rojo) 66.6%);}
+header{position:relative;z-index:10;background:var(--rojo);overflow:hidden;}
+header::after{content:'';position:absolute;top:-80px;right:-40px;width:420px;height:420px;background:rgba(0,0,0,.12);transform:rotate(-20deg);pointer-events:none;}
+.header-inner{max-width:1300px;margin:0 auto;padding:3rem 2.5rem 2.5rem;display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem;position:relative;}
+.header-eyebrow{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;}
+.chile-flag{display:flex;height:22px;border-radius:2px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.4);flex-shrink:0;}
+.f-blue{background:var(--azul2);width:22px;display:flex;align-items:center;justify-content:center;font-size:9px;}
+.f-white{background:#fff;width:36px;}.f-red{background:#C41010;width:36px;}
+.eyebrow-text{font-family:'Oswald',sans-serif;font-size:.7rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.75);}
+.header-title{font-family:'Oswald',sans-serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:700;line-height:.92;letter-spacing:.01em;text-transform:uppercase;color:var(--blanco);text-shadow:0 4px 20px rgba(0,0,0,.3);}
+.header-title em{font-style:normal;color:rgba(255,255,255,.5);font-size:.45em;display:block;font-weight:300;letter-spacing:.25em;margin-bottom:.4rem;}
+.header-tagline{margin-top:1.2rem;font-size:.9rem;font-weight:300;color:rgba(255,255,255,.7);letter-spacing:.04em;}
+.live-box{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1.2rem 1.5rem;text-align:right;min-width:220px;backdrop-filter:blur(4px);}
+.live-indicator{display:flex;align-items:center;justify-content:flex-end;gap:.4rem;margin-bottom:.5rem;}
+.live-dot{width:7px;height:7px;background:var(--verde);border-radius:50%;animation:blink 1.4s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+.live-label{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.2em;color:var(--verde);text-transform:uppercase;}
+.live-date{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.6);letter-spacing:.05em;line-height:1.6;}
+.live-date strong{color:var(--blanco);display:block;font-size:.95rem;font-weight:600;}
+@media(max-width:640px){.header-inner{grid-template-columns:1fr;}.live-box{text-align:left;min-width:auto;}.live-indicator{justify-content:flex-start;}}
+.counter-strip{position:relative;z-index:10;background:var(--azul);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.counter-item{display:flex;align-items:baseline;gap:.4rem;}
+.counter-num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1;color:var(--blanco);letter-spacing:.02em;}
+.counter-lbl{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.counter-sep{color:rgba(255,255,255,.2);font-size:1.5rem;font-weight:100;}
+.container{position:relative;z-index:10;max-width:1300px;margin:0 auto;padding:2.5rem 2.5rem 4rem;}
+.section-heading{font-family:'Oswald',sans-serif;font-size:.65rem;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:var(--g4);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;}
+.section-heading::after{content:'';flex:1;height:1px;background:var(--g3);}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:620px){.grid{grid-template-columns:1fr;}}
+.card{background:var(--g1);border:1px solid var(--g3);border-radius:3px;padding:1.8rem;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:1rem;transition:border-color .25s,transform .25s;cursor:default;}
+.card:hover{border-color:var(--rojo);transform:translateY(-3px);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.card[data-theme="rojo"]::before{background:var(--rojo);}
+.card[data-theme="azul"]::before{background:var(--azul);}
+.card[data-theme="amarillo"]::before{background:var(--amarillo);}
+.card[data-theme="verde"]::before{background:var(--verde);}
+.card[data-theme="naranja"]::before{background:var(--naranja);}
+.card-bg-num{position:absolute;bottom:-.5rem;right:.5rem;font-family:'Bebas Neue',sans-serif;font-size:7rem;line-height:1;color:rgba(255,255,255,.025);pointer-events:none;user-select:none;}
+.card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;}
+.card-tag{font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g4);}
+.badge{display:inline-flex;align-items:center;gap:.25rem;padding:.2rem .5rem;border-radius:2px;font-family:'Oswald',sans-serif;font-size:.55rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+.badge::before{font-size:.7em;}
+.badge-ok{background:rgba(29,185,84,.12);color:var(--verde);border:1px solid rgba(29,185,84,.3);}
+.badge-ok::before{content:'●';}
+.badge-pend{background:rgba(240,192,48,.1);color:var(--amarillo);border:1px solid rgba(240,192,48,.3);}
+.badge-pend::before{content:'◐';}
+.badge-ini{background:rgba(0,48,135,.25);color:#6AB0FF;border:1px solid rgba(106,176,255,.3);}
+.badge-ini::before{content:'▶';}
+.badge-mal{background:rgba(204,27,20,.1);color:#FF6B6B;border:1px solid rgba(204,27,20,.3);}
+.badge-mal::before{content:'✗';}
+.badge-nd{background:rgba(255,255,255,.05);color:var(--g4);border:1px solid var(--g3);}
+.badge-nd::before{content:'?';}
+.card-title{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;line-height:1.15;color:var(--blanco);}
+.card-value{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,4.5rem);letter-spacing:.02em;display:block;animation:fadeUp .7s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.card[data-theme="rojo"] .card-value{color:#FF7070;}
+.card[data-theme="azul"] .card-value{color:#7ABFFF;}
+.card[data-theme="amarillo"] .card-value{color:var(--amarillo);}
+.card[data-theme="verde"] .card-value{color:var(--verde);}
+.card[data-theme="naranja"] .card-value{color:#FFAA60;}
+.card-unit{font-family:'Barlow',sans-serif;font-size:.7rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:var(--g4);margin-top:.2rem;}
+.prog-track{height:4px;background:var(--g3);border-radius:2px;overflow:hidden;margin-bottom:.35rem;margin-top:.4rem;}
+.prog-fill{height:100%;border-radius:2px;transition:width 1s ease;}
+.card[data-theme="rojo"] .prog-fill{background:#FF7070;}
+.card[data-theme="azul"] .prog-fill{background:#7ABFFF;}
+.card[data-theme="amarillo"] .prog-fill{background:var(--amarillo);}
+.card[data-theme="verde"] .prog-fill{background:var(--verde);}
+.card[data-theme="naranja"] .prog-fill{background:#FFAA60;}
+.prog-labels{display:flex;justify-content:space-between;font-family:'Oswald',sans-serif;font-size:.58rem;color:var(--g4);letter-spacing:.08em;}
+.card-body{font-size:.82rem;font-weight:300;color:#AAA;line-height:1.55;border-top:1px solid var(--g3);padding-top:.9rem;flex:1;}
+.card-body strong{color:var(--blanco);font-weight:600;}
+.hi-r{color:#FF8080;font-weight:600;}.hi-a{color:var(--amarillo);font-weight:600;}.hi-v{color:var(--verde);font-weight:600;}.hi-b{color:#7ABFFF;font-weight:600;}
+.tl{display:flex;flex-direction:column;gap:.5rem;margin-top:.6rem;}
+.tl-item{display:flex;gap:.6rem;align-items:flex-start;}
+.tl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.tl-done{background:var(--verde);}.tl-pend{background:transparent;border:1px solid var(--g4);}.tl-soon{background:var(--amarillo);animation:blink 1s infinite;}
+.tl-text{font-size:.78rem;color:#999;line-height:1.4;}.tl-text strong{color:#CCC;}
+.tl-date{font-family:'Oswald',sans-serif;font-size:.58rem;color:var(--g4);letter-spacing:.1em;margin-top:.05rem;}
+.source{display:inline-flex;align-items:center;gap:.2rem;font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.1em;color:var(--g4);text-decoration:none;text-transform:uppercase;margin-top:.6rem;transition:color .2s;}
+.source::before{content:'↗';font-size:.65rem;}.source:hover{color:var(--blanco);}
+.disclaimer{position:relative;z-index:10;max-width:1300px;margin:0 auto;padding:0 2.5rem 1.5rem;}
+.disclaimer-inner{background:rgba(240,192,48,.05);border:1px dashed rgba(240,192,48,.25);border-radius:3px;padding:1rem 1.5rem;font-size:.75rem;font-weight:300;color:#888;line-height:1.7;}
+.disclaimer-inner strong{color:var(--amarillo);}
+footer{position:relative;z-index:10;background:var(--g2);border-top:1px solid var(--g3);padding:1.5rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blanco);display:flex;align-items:center;gap:.5rem;}
+.footer-logo::before{content:'★';color:var(--rojo);}
+.footer-sources{font-size:.65rem;color:var(--g4);letter-spacing:.05em;text-align:right;}
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">
+        <div class="chile-flag"><div class="f-blue">★</div><div class="f-white"></div><div class="f-red"></div></div>
+        <span class="eyebrow-text">República de Chile &nbsp;·&nbsp; Presidencia 2026–2030</span>
+      </div>
+      <h1 class="header-title"><em>Kast</em>Seguimiento<br>de Promesas</h1>
+      <p class="header-tagline">Monitoreo ciudadano independiente · Datos verificados en fuentes oficiales y medios</p>
+    </div>
+    <div class="live-box">
+      <div class="live-indicator"><div class="live-dot"></div><span class="live-label">En vivo</span></div>
+      <div class="live-date">Actualizado al<br><strong id="fechaActual">cargando...</strong></div>
+    </div>
+  </div>
+</header>
+<div class="counter-strip">
+  <div class="counter-item"><span class="counter-num" id="stripDias">—</span><span class="counter-lbl">días en el poder</span></div>
+  <div class="counter-sep">|</div>
+  <div class="counter-item"><span class="counter-num">6</span><span class="counter-lbl">promesas en seguimiento</span></div>
+  <div class="counter-sep">|</div>
+  <div class="counter-item"><span class="counter-num">2</span><span class="counter-lbl">en curso</span></div>
+  <div class="counter-sep">|</div>
+  <div class="counter-item"><span class="counter-num">4</span><span class="counter-lbl">pendientes / sin dato</span></div>
+</div>
+<div class="container">
+  <div class="section-heading">Compromisos de campaña · Estado actual</div>
+  <div class="grid">
+    <div class="card" data-theme="azul"><div class="card-bg-num">01</div><div class="card-header"><span class="card-tag">01/06 · Mandato</span><span class="badge badge-ok">En curso</span></div><div class="card-title">Días en el<br>Gobierno</div><span class="card-value" id="diasGobierno">—</span><div class="card-unit">días desde el 11 · mar · 2026</div><div class="prog-track"><div class="prog-fill" id="progMandato" style="width:0%"></div></div><div class="prog-labels"><span>11 Mar 2026</span><span id="pctMandato">0%</span><span>11 Mar 2030</span></div><div class="card-body">Kast asumió el <strong>11 de marzo de 2026</strong> en el Congreso de Valparaíso. Mandato de <strong>4 años</strong> (1.461 días), sin reelección inmediata.</div><a class="source" href="https://www.gob.cl" target="_blank" rel="noopener">gob.cl · Presidencia de Chile</a></div>
+    <div class="card" data-theme="rojo"><div class="card-bg-num">02</div><div class="card-header"><span class="card-tag">02/06 · Migración</span><span class="badge badge-mal">Sin ejecutar</span></div><div class="card-title">Inmigrantes<br>Expulsados</div><span class="card-value">0</span><div class="card-unit">expulsiones ejecutadas al <span id="fechaCorta">01/04/2026</span></div><div class="card-body">El propio Kast admitió el <strong>31 mar</strong> que <span class="hi-r">no hay expulsiones ejecutadas</span>. Existen ~<strong>46.000 órdenes pendientes</strong>. Prometió expulsar <strong>337.000</strong> durante el mandato.<div class="tl"><div class="tl-item"><div class="tl-dot tl-done"></div><div><div class="tl-text"><strong>Frenó regularización de 182.000 migrantes</strong></div><div class="tl-date">30 Mar 2026 · Serv. Migraciones</div></div></div><div class="tl-item"><div class="tl-dot tl-done"></div><div><div class="tl-text"><strong>Ingresó 2 proyectos de ley migratorios</strong></div><div class="tl-date">Mar 2026 · tipifica ingreso ilegal como delito</div></div></div><div class="tl-item"><div class="tl-dot tl-soon"></div><div><div class="tl-text"><strong>Primeros vuelos de expulsión</strong></div><div class="tl-date">Proyectado Abr 2026 · sin confirmar</div></div></div></div></div><a class="source" href="https://www.latribuna.cl/politica/2026/03/31/migracion-irregular-kast-admite-que-no-hay-expulsiones-aun-y-asegura-que-habra-un-sistema-continuo.html" target="_blank" rel="noopener">La Tribuna · 31 Mar 2026</a></div>
+    <div class="card" data-theme="amarillo"><div class="card-bg-num">03</div><div class="card-header"><span class="card-tag">03/06 · Frontera</span><span class="badge badge-nd">Sin dato oficial</span></div><div class="card-title">Zanja<br>Fronteriza</div><span class="card-value" style="font-size:2.8rem">S/D</span><div class="card-unit">metros construidos · meta: 30.000 m en 90 días</div><div class="prog-track"><div class="prog-fill" id="progZanja" style="width:0%"></div></div><div class="prog-labels"><span>16 Mar</span><span id="pctZanja">…</span><span>14 Jun</span></div><div class="card-body">Obras del <strong>Plan Escudo Fronterizo</strong> iniciaron el 16 mar en Chacalluta. Meta: <span class="hi-a">30 km en 90 días</span>. <span class="hi-a">El gobierno no ha publicado avance en metros.</span><div class="tl"><div class="tl-item"><div class="tl-dot tl-done"></div><div><div class="tl-text"><strong>Obras iniciadas Chacalluta (hitos 1–15)</strong></div><div class="tl-date">16 Mar 2026 · Ejército + MOP</div></div></div><div class="tl-item"><div class="tl-dot tl-pend"></div><div><div class="tl-text"><strong>Meta: 30 km extendidos</strong></div><div class="tl-date">Deadline ~14 Jun 2026</div></div></div></div></div><a class="source" href="https://www.gob.cl/noticias/presidente-jose-antonio-kast-llego-hasta-arica-para-supervisar-implementacion-del-plan-escudo-fronterizo-contra-la-migracion-irregular/" target="_blank" rel="noopener">gob.cl · Plan Escudo Fronterizo</a></div>
+    <div class="card" data-theme="verde"><div class="card-bg-num">04</div><div class="card-header"><span class="card-tag">04/06 · Economía</span><span class="badge badge-ini">Fase 1 iniciada</span></div><div class="card-title">Ajuste<br>Fiscal</div><span class="card-value" style="font-size:3rem">$3.800M</span><div class="card-unit">USD en fase 1 / meta: $6.000M en 18 meses</div><div class="prog-track"><div class="prog-fill" style="width:63.3%"></div></div><div class="prog-labels"><span>Fase 1: $3.800M</span><span>63%</span><span>Meta: $6.000M</span></div><div class="card-body">Hacienda firmó recorte del <strong>3% del gasto de todos los ministerios</strong> + US$1.000M. Fase 1 = <span class="hi-v">US$3.800M</span>. Restantes US$2.200M van en Presupuestos 2027. Fitch Ratings calificó la meta de <span class="hi-a">"difícil de implementar"</span>.</div><a class="source" href="https://www.emol.com/noticias/Economia/2026/03/17/1194486/ajuste-fiscal-hacienda-oficio-kast.html" target="_blank" rel="noopener">Emol · 17 Mar 2026</a></div>
+    <div class="card" data-theme="naranja"><div class="card-bg-num">05</div><div class="card-header"><span class="card-tag">05/06 · Frontera</span><span class="badge badge-nd">Sin dato oficial</span></div><div class="card-title">Reducción<br>Cruces Ilegales</div><span class="card-value" style="font-size:2.8rem">S/D</span><div class="card-unit">% reducción real / meta −40% en 90 días</div><div class="prog-track"><div class="prog-fill" id="progCruces" style="width:0%"></div></div><div class="prog-labels"><span>11 Mar</span><span id="pctCruces">…</span><span>~9 Jun</span></div><div class="card-body">Prometió <span class="hi-a">−40% de cruces irregulares</span> en 3 meses. No ha publicado cifras oficiales. En 2025 hubo 26.275 denuncias (−10% vs 2024).</div><a class="source" href="https://www.france24.com/es/am%C3%A9rica-latina/20251215-seguridad-inmigraci%C3%B3n-y-reforma-fiscal-el-plan-de-choque-de-kast-para-los-tres-primeros-meses-de-gobierno" target="_blank" rel="noopener">France 24 · Dic 2025</a></div>
+    <div class="card" data-theme="rojo"><div class="card-bg-num">06</div><div class="card-header"><span class="card-tag">06/06 · Seguridad</span><span class="badge badge-pend">En tramitación</span></div><div class="card-title">Plan<br>Implacable</div><span class="card-value" style="font-size:2rem;line-height:1.3">En trámite</span><div class="card-unit">crimen organizado · narcotráfico</div><div class="card-body">"Declaración de guerra al crimen organizado." Cárceles de máxima seguridad, narco como <strong>delito de seguridad nacional</strong>.<div class="tl"><div class="tl-item"><div class="tl-dot tl-done"></div><div><div class="tl-text"><strong>Retiró Plan Nacional de DDHH (Boric)</strong></div><div class="tl-date">Mar 2026</div></div></div><div class="tl-item"><div class="tl-dot tl-done"></div><div><div class="tl-text"><strong>Proyecto ley: narco = traición a la patria</strong></div><div class="tl-date">Congreso · Mar 2026</div></div></div><div class="tl-item"><div class="tl-dot tl-pend"></div><div><div class="tl-text"><strong>Cárceles de máxima seguridad</strong></div><div class="tl-date">Sin avance confirmado</div></div></div></div></div><a class="source" href="https://interferencia.cl/articulos/recortes-decretos-retirados-zanjas-y-auditorias-la-semana-donde-kast-intento-imponer-sus" target="_blank" rel="noopener">Interferencia · Mar 2026</a></div>
+  </div>
+</div>
+<div class="disclaimer"><div class="disclaimer-inner"><strong>⚠ Metodología:</strong> Datos verificados en fuentes públicas. S/D = sin dato oficial publicado. Esta página no tiene afiliación política ni gubernamental.</div></div>
+<footer><div class="footer-logo">Kast · Seguimiento de Promesas</div><div class="footer-sources">Fuentes: gob.cl · AFP · BioBioChile · Emol · La Tribuna · France24 · Interferencia<br>Revisión: <span id="footerFecha">01/04/2026</span></div></footer>
+<script>
+const inicio=new Date('2026-03-11T12:00:00-03:00'),finMandato=new Date('2030-03-11T12:00:00-03:00'),inicioZanja=new Date('2026-03-16T00:00:00-03:00'),deadlineZanja=new Date('2026-06-14T00:00:00-03:00'),deadlineCruces=new Date('2026-06-09T00:00:00-03:00');
+function fmtF(d){return d.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+function fmtC(d){return d.toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});}
+function pct(v,t){return Math.min(100,Math.max(0,(v/t)*100));}
+function upd(){const n=new Date(),dm=n-inicio,di=Math.floor(dm/86400000);
+document.getElementById('diasGobierno').textContent=di;
+document.getElementById('stripDias').textContent=di;
+const p1=pct(dm,finMandato-inicio);
+document.getElementById('progMandato').style.width=p1.toFixed(2)+'%';
+document.getElementById('pctMandato').textContent=p1.toFixed(2)+'%';
+const p2=pct(n-inicioZanja,deadlineZanja-inicioZanja);
+document.getElementById('progZanja').style.width=p2.toFixed(1)+'%';
+document.getElementById('pctZanja').textContent=p2.toFixed(1)+'% del plazo';
+const p3=pct(n-inicio,deadlineCruces-inicio);
+document.getElementById('progCruces').style.width=p3.toFixed(1)+'%';
+document.getElementById('pctCruces').textContent=p3.toFixed(1)+'% del plazo';
+document.getElementById('fechaActual').textContent=fmtF(n);
+document.getElementById('fechaCorta').textContent=fmtC(n);
+document.getElementById('footerFecha').textContent=fmtC(n);}
+upd();setInterval(upd,30000);
+</script>
+</body>
+</html>
